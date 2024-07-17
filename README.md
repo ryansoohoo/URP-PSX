@@ -2,10 +2,10 @@
 
 If the fog doesnt render in the scene/game hit play and the fog should load in. 
 
-= changed from shader.find to resources load
-= updated render feature to include AddRenderPasses, and SetupRenderPasses
-+ added material placeholder in resources
-+ added shader variant collection
+- changed from shader.find to resources load
+- updated render feature to include AddRenderPasses, and SetupRenderPasses
+- added material placeholder in resources
+- added shader variant collection
 
 
 # URP-PSX

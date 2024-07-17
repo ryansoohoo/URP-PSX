@@ -69,7 +69,7 @@ namespace PSX
         {
             if (this.fogMaterial == null)
             {
-                Debug.LogError("Material not created.");
+                //Debug.LogError("Material not created.");
                 return;
             }
     

@@ -65,7 +65,7 @@ namespace PSX
             {
                 if (this.ditheringMaterial == null)
                 {
-                    Debug.LogError("Material not created.");
+                    //Debug.LogError("Material not created.");
                     return;
                 }
 

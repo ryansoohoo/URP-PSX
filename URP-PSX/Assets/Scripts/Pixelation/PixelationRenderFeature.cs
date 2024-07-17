@@ -66,7 +66,7 @@ namespace PSX
         {
             if (this.pixelationMaterial == null)
             {
-                Debug.LogError("Material not created.");
+               // Debug.LogError("Material not created.");
                 return;
             }
     

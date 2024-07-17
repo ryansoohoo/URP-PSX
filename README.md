@@ -1,3 +1,13 @@
+### Working 2023.2.12f1 
+
+If the fog doesnt render in the scene/game hit play and the fog should load in. 
+
+= changed from shader.find to resources load
+= updated render feature to include AddRenderPasses, and SetupRenderPasses
++ added material placeholder in resources
++ added shader variant collection
+
+
 # URP-PSX
 
 Playstation 1 era retro graphics plugin optimized for Unity's Universal Rendering Pipeline with Shadergraph. The aim of this plugin was to use Unity's new pipeline to create NPR (non-photorealistic) PSX-style retro graphics with the shadergraph as the basis for materials and URP's render features as the basis for post processing effects.

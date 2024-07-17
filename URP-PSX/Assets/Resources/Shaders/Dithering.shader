@@ -1,4 +1,4 @@
-﻿Shader "PostEffect/Dithering"
+﻿Shader "Resources/Shaders/Dithering"
 {
     Properties
     {

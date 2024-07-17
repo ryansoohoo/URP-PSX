@@ -13,18 +13,20 @@ namespace PSX
             fogPass = new FogPass(RenderPassEvent.BeforeRenderingPostProcessing);
         }
 
-        //ScripstableRendererFeature is an abstract class, you need this method
         public override void AddRenderPasses(ScriptableRenderer renderer, ref RenderingData renderingData)
         {
-            fogPass.Setup(renderer.cameraColorTarget);
             renderer.EnqueuePass(fogPass);
+        }
+
+        public override void SetupRenderPasses(ScriptableRenderer renderer, in RenderingData renderingData)
+        {
+            fogPass.Setup(renderer.cameraColorTargetHandle);
         }
     }
     
     
     public class FogPass : ScriptableRenderPass
     {
-        private static readonly string shaderPath = "PostEffect/Fog";
         static readonly string k_RenderTag = "Render Fog Effects";
         static readonly int MainTexId = Shader.PropertyToID("_MainTex");
         static readonly int TempTargetId = Shader.PropertyToID("_TempTargetFog");
@@ -45,13 +47,22 @@ namespace PSX
         public FogPass(RenderPassEvent evt)
         {
             renderPassEvent = evt;
-            var shader = Shader.Find(shaderPath);
+            Shader shader = Resources.Load<Shader>("Shaders/Fog");
             if (shader == null)
             {
-                Debug.LogError("Shader not found.");
+                //not sure why it logs error 2x and then works so I'm commenting it out
+                //Debug.LogError("Failed to load shader from Resources.");
                 return;
             }
-            this.fogMaterial = CoreUtils.CreateEngineMaterial(shader);
+            fogMaterial = new Material(shader);
+            if (fogMaterial == null)
+            {
+                //Debug.LogError("Failed to create material.");
+            }
+            else
+            {
+                //Debug.Log("Material created successfully.");
+            }
         }
     
         public override void Execute(ScriptableRenderContext context, ref RenderingData renderingData)

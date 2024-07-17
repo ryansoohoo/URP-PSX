@@ -1,6 +1,6 @@
 ﻿// Upgrade NOTE: replaced '_Object2World' with 'unity_ObjectToWorld'
 
-Shader "PostEffect/Fog"
+Shader "Resources/Shaders/Fog"
 {
     Properties
     {
@@ -9,7 +9,7 @@ Shader "PostEffect/Fog"
     
     CGINCLUDE
         #include "UnityCG.cginc"
-        #include "Assets/Shaders/cginc/voronoi.cginc"
+        #include "Assets/Resources/Shaders/cginc/voronoi.cginc"
     
         sampler2D _MainTex;
         sampler2D _CameraDepthTexture;

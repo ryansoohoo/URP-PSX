@@ -1,4 +1,4 @@
-﻿Shader "PostEffect/Pixelation"
+﻿Shader "Resources/Shaders/Pixelation"
 {
     Properties
     {

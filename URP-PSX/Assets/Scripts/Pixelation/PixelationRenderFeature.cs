@@ -13,18 +13,20 @@ namespace PSX
             pixelationPass = new PixelationPass(RenderPassEvent.BeforeRenderingPostProcessing);
         }
 
-        //ScripstableRendererFeature is an abstract class, you need this method
         public override void AddRenderPasses(ScriptableRenderer renderer, ref RenderingData renderingData)
         {
-            pixelationPass.Setup(renderer.cameraColorTarget);
             renderer.EnqueuePass(pixelationPass);
+        }
+
+        public override void SetupRenderPasses(ScriptableRenderer renderer, in RenderingData renderingData)
+        {
+            pixelationPass.Setup(renderer.cameraColorTargetHandle);
         }
     }
     
     
     public class PixelationPass : ScriptableRenderPass
     {
-        private static readonly string shaderPath = "PostEffect/Pixelation";
         static readonly string k_RenderTag = "Render Pixelation Effects";
         static readonly int MainTexId = Shader.PropertyToID("_MainTex");
         static readonly int TempTargetId = Shader.PropertyToID("_TempTargetPixelation");
@@ -42,15 +44,24 @@ namespace PSX
         public PixelationPass(RenderPassEvent evt)
         {
             renderPassEvent = evt;
-            var shader = Shader.Find(shaderPath);
+            Shader shader = Resources.Load<Shader>("Shaders/Pixelation");
             if (shader == null)
             {
-                Debug.LogError("Shader not found.");
+                //not sure why it logs error 2x and then works so I'm commenting it out
+                //Debug.LogError("Failed to load shader from Resources.");
                 return;
             }
-            this.pixelationMaterial = CoreUtils.CreateEngineMaterial(shader);
+            pixelationMaterial = new Material(shader);
+            if (pixelationMaterial == null)
+            {
+                //Debug.LogError("Failed to create material.");
+            }
+            else
+            {
+                //Debug.Log("Material created successfully.");
+            }
         }
-    
+        
         public override void Execute(ScriptableRenderContext context, ref RenderingData renderingData)
         {
             if (this.pixelationMaterial == null)
